@@ -20,7 +20,7 @@ URI = ("https://home.ss.ge/ru/%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D
 driver = webdriver.Chrome(service=service, options=options)
 
 
-def get_source_code(url: str) -> None:
+def get_source_code(url: str, driver: webdriver = driver) -> None:
     driver.get(url)
     time.sleep(1)
 
