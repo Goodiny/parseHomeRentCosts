@@ -3,7 +3,7 @@ import logging
 from pyrogram import Client, filters
 
 import config
-from parseHome import ParseHome
+from parseHome import ParseHomeSSGE
 
 # Настройка логгирования
 logging.basicConfig(level=logging.INFO)
@@ -23,8 +23,8 @@ def handle_text_message(client, message):
         logging.info(f"Received rent home: {message.text}")
 
         # Парсим сообщение
-        parse_home = ParseHome()
-        parse_home.get_source_code(ParseHome.RENT_URI)
+        parse_home = ParseHomeSSGE()
+        parse_home.get_source_code(ParseHomeSSGE.RENT_URI)
         print(parse_home.data)
 
         client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"], data["price"],
@@ -34,8 +34,8 @@ def handle_text_message(client, message):
         logging.info(f"Received sale home: {message.text}")
 
         # Парсим сообщение
-        parse_home = ParseHome()
-        parse_home.get_source_code(ParseHome.SALE_URI)
+        parse_home = ParseHomeSSGE()
+        parse_home.get_source_code(ParseHomeSSGE.SALE_URI)
         print(parse_home.data)
 
         client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"], data["price"],

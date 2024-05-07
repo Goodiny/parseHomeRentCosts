@@ -9,7 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 
-class ParseHome:
+class ParseHomeSSGE:
     """
     Parse home rent page
     """
@@ -84,8 +84,8 @@ class ParseHome:
 
 
 def main() -> None:
-    parse_home = ParseHome()
-    parse_home.get_source_code(ParseHome.RENT_URI)
+    parse_home = ParseHomeSSGE()
+    parse_home.get_source_code(ParseHomeSSGE.RENT_URI)
 
 
 if __name__ == "__main__":
