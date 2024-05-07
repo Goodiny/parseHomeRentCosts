@@ -27,7 +27,8 @@ def handle_text_message(client, message):
         parse_home.get_source_code(ParseHomeSSGE.RENT_URI)
         print(parse_home.data)
 
-        client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"], data["price"],
+        client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"],
+                                                                    data["address"], data["price"],
                                                                      data["area"]]) for data in parse_home.data]))
     elif message.text.lower() == "спарсить продажу":
         # Логируем полученное сообщение
@@ -38,8 +39,9 @@ def handle_text_message(client, message):
         parse_home.get_source_code(ParseHomeSSGE.SALE_URI)
         print(parse_home.data)
 
-        client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"], data["price"],
-                                                                     data["area"], data.get("price_per_metr", '')])
+        client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"],
+                                                                     data["address"], data["price"], data["area"],
+                                                                     data.get("price_per_metr", '')])
                                                           for data in parse_home.data]))
 
     # Отправляем обратно тоже самоее сообшеение
