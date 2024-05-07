@@ -20,7 +20,7 @@ app = Client("MyBot", api_id=api_id, api_hash=api_hash)
 def handle_text_message(client, message):
     parse_home: ParseHomeSSGE = None
 
-    if message.text.lower() == "спарсить аренду":
+    if message.text.lower() == "аренда":
         # Логируем полученное сообщение
         logging.info(f"Received rent home: {message.text}")
 
@@ -28,7 +28,7 @@ def handle_text_message(client, message):
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.RENT_URI)
 
-    elif message.text.lower() == "спарсить продажу":
+    elif message.text.lower() == "продажа":
         # Логируем полученное сообщение
         logging.info(f"Received sale home: {message.text}")
 
