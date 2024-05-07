@@ -1,13 +1,15 @@
 import logging
 from pyrogram import Client, filters
+
+import config
 from parseHome import ParseHome
 
 # Настройка логгирования
 logging.basicConfig(level=logging.INFO)
 
 # Создайте сессию Pyrogram
-api_id = "13041363"
-api_hash = "f3d0238ae72f0e72c2693553d584fa70"
+api_id = config.API_ID
+api_hash = config.API_HASH
 
 app = Client("MyBot", api_id=api_id, api_hash=api_hash)
 
