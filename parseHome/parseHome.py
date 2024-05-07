@@ -34,29 +34,28 @@ class ParseHome:
                 )
                 data_temp = {}
                 for elem in element.text.replace("реклама", "").split('\n'):
-                    if "2024" in elem or "час назад" in elem:
+                    if elem.endswith("2024") or elem.endswith("назад"):
                         self.data.append(data_temp) if data_temp else None
                         data_temp = {}
                         data_temp["date"] = elem
-                    elif '$' in elem:
+                    elif elem.endswith("$"):
                         data_temp["price"] = elem
-                    elif "ул." in elem:
+                    elif elem.startswith("ул."):
                         data_temp["address"] = elem
-                    elif "m²" in elem:
+                    elif elem.endswith("m²"):
                         data_temp["area"] = elem
                     elif elem.isdigit():
                         data_temp["rooms"] = elem
                     elif "/" in elem and len(elem) <= 5:
                         data_temp["floors"] = elem
-                    elif elem.startswith("Аренда") and len(elem) <= 40:
+                    elif (((elem.startswith("Аренда") or elem.startswith("Продается") or elem.startswith("Сдается"))
+                          and len(elem) <= 45) and "date" in data_temp and "price" not in data_temp):
                         data_temp["title"] = elem
                     else:
                         data_temp["description"] = elem
 
-                print(self.data)
-
-                # with open("source_code.txt", "w") as f:
-                #     f.write(element.text.replace("реклама", ""))
+                with open("source_code.txt", "w") as f:
+                    f.write(element.text.replace("реклама", ""))
                 break
             except TimeoutException as _ex:
                 print(_ex)

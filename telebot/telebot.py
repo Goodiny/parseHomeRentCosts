@@ -19,9 +19,10 @@ def handle_text_message(client, message):
 
     # Парсим сообщение
     parse_home = ParseHome()
-    parse_home.parse(message.text)
+    parse_home.get_source_code()
     print(parse_home.data)
-    client.send_message(message.chat.id, parse_home.data)
+    client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"], data["price"], data["area"]])
+                                                    for data in parse_home.data]))
 
     # with open('source_code.txt', 'r') as sc:
     #     text = sc.read()
