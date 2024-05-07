@@ -159,7 +159,24 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 .idea/
 
-source_code.txt
-
 *.session
 *.session-journal
+*.pid
+*.sublime-workspace
+*.sublime-project
+*.sublime-session
+*.sublime-keymap
+*.sublime-mousemap
+*.sublime-settings
+*.sublime-interface
+*.sublime-text-lock
+*.sublime-history
+*.sublime-backup
+*.swp
+*.swo
+*.swp-e2e
+*.swo-e2e
+*.swp-e2e-e2e
+
+config.py
+source_code.txt
