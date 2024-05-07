@@ -27,9 +27,8 @@ def handle_text_message(client, message):
         parse_home.get_source_code(ParseHomeSSGE.RENT_URI)
         print(parse_home.data)
 
-        client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"],
-                                                                    data["address"], data["price"],
-                                                                     data["area"]]) for data in parse_home.data]))
+        client.send_message(message.chat.id, get_str_from_data(parse_home.data))
+
     elif message.text.lower() == "спарсить продажу":
         # Логируем полученное сообщение
         logging.info(f"Received sale home: {message.text}")
@@ -39,13 +38,15 @@ def handle_text_message(client, message):
         parse_home.get_source_code(ParseHomeSSGE.SALE_URI)
         print(parse_home.data)
 
-        client.send_message(message.chat.id, "\n\n".join([", ".join([data["date"], data["title"],
-                                                                     data["address"], data["price"], data["area"],
-                                                                     data.get("price_per_metr", '')])
-                                                          for data in parse_home.data]))
+        client.send_message(message.chat.id, get_str_from_data(parse_home.data))
 
     # Отправляем обратно тоже самоее сообшеение
     message.reply_text(message.chat.id, message.text)
+
+
+def get_str_from_data(data: list) -> str:
+    return "\n\n".join([", ".join([d["date"], d["title"], d["address"], d["price"], d["area"],
+                                   d.get("price_per_metr", '')]) for d in data])
 
 
 def main():
