@@ -21,48 +21,37 @@ def handle_text_message(client, message):
     parse_home: ParseHomeSSGE = None
 
     if message.text.lower() == "аренда":
-        # Логируем полученное сообщение
-        logging.info(f"Received rent home: {message.text}")
-
         # Парсим сообщение
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.RENT_URI)
-
     elif message.text.lower() == "продажа":
-        # Логируем полученное сообщение
-        logging.info(f"Received sale home: {message.text}")
-
         # Парсим сообщение
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.SALE_URI)
-
     elif message.text.lower() == "посуточно":
-        # Логируем полученное сообщение
-        logging.info(f"Received parse home: {message.text}")
-
         # Парсим сообщение
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.DAY_RENT_URI)
-
     elif message.text.lower() == "рента":
-        # Логируем полученное сообщение
-        logging.info(f"Received parse home: {message.text}")
-
         # Парсим сообщение
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.LEASING_URI)
 
     # Отправляем обратно то же самое сообшеение
     if parse_home and parse_home.data:
+        # Логируем полученное сообщение
+        logging.info(f"Received parse home: {message.text}")
+
         print(parse_home.data)
         message.reply_text(f"{message.chat.id}\n\n{get_str_from_data(parse_home.data, ', ')}", message.text)
     else:
-        message.reply_text(f"{message.chat.id}\n\nНе удалось спарсить данные", message.text)
+        message.reply_text(f"{message.chat.id}\n\n"
+                           f"{'Не удалось спарсить данные' if parse_home else 'Нет такой команды'}", message.text)
 
 
 def get_str_from_data(data: list, sep: str = ' | ') -> str:
     return "\n\n".join([sep.join([d["date"], d.get("title", ''), d["address"], d.get("price", ''), d["area"],
-                                  d.get("price_per_metr", '') ]).rstrip(sep) for d in data])
+                                  d.get("price_per_metr", '')]).rstrip(sep) for d in data])
 
 
 def main():
