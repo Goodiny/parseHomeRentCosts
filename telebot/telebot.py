@@ -36,6 +36,14 @@ def handle_text_message(client, message):
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.SALE_URI)
 
+    elif message.text.lower() == "посуточно":
+        # Логируем полученное сообщение
+        logging.info(f"Received parse home: {message.text}")
+
+        # Парсим сообщение
+        parse_home = ParseHomeSSGE()
+        parse_home.get_source_code(ParseHomeSSGE.DAY_RENT_URI)
+
     # Отправляем обратно тоже самое сообшеение
     if parse_home and parse_home.data:
         print(parse_home.data)
@@ -45,8 +53,8 @@ def handle_text_message(client, message):
 
 
 def get_str_from_data(data: list, sep: str = ' | ') -> str:
-    return "\n\n".join([sep.join([d["date"], d["title"], d["address"], d["price"], d["area"],
-                                    d.get("price_per_metr", '') ]).rstrip(sep) for d in data])
+    return "\n\n".join([sep.join([d["date"], d.get("title", ''), d["address"], d.get("price", ''), d["area"],
+                                  d.get("price_per_metr", '') ]).rstrip(sep) for d in data])
 
 
 def main():
