@@ -44,7 +44,15 @@ def handle_text_message(client, message):
         parse_home = ParseHomeSSGE()
         parse_home.get_source_code(ParseHomeSSGE.DAY_RENT_URI)
 
-    # Отправляем обратно тоже самое сообшеение
+    elif message.text.lower() == "рента":
+        # Логируем полученное сообщение
+        logging.info(f"Received parse home: {message.text}")
+
+        # Парсим сообщение
+        parse_home = ParseHomeSSGE()
+        parse_home.get_source_code(ParseHomeSSGE.LEASING_URI)
+
+    # Отправляем обратно то же самое сообшеение
     if parse_home and parse_home.data:
         print(parse_home.data)
         message.reply_text(f"{message.chat.id}\n\n{get_str_from_data(parse_home.data, ', ')}", message.text)
